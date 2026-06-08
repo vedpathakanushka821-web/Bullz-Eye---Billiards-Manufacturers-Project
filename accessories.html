@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bullz Eye Billiards Accessories</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/products.css" />
+  <style>
+    .acc-hero{padding-top:60px;padding-bottom:40px;text-align:center}
+    .acc-categories{padding:20px 0 60px;background:var(--bg)}
+    .acc-circles-wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem 1.75rem}
+    .acc-circle-item{display:flex;flex-direction:column;align-items:center;gap:.85rem;cursor:pointer;transition:transform .25s}
+    .acc-circle-item:hover{transform:translateY(-6px)}
+    .acc-circle-item:hover .acc-circle{border-color:var(--gold);box-shadow:0 0 22px rgba(212,168,67,.35)}
+    .acc-circle-item:hover .acc-circle-label{color:var(--gold)}
+    .acc-circle-item.active .acc-circle{border-color:var(--gold);box-shadow:0 0 28px rgba(212,168,67,.5)}
+    .acc-circle-item.active .acc-circle-label{color:var(--gold);font-weight:600}
+    .acc-circle{width:110px;height:110px;border-radius:50%;border:2px solid var(--border);background:var(--surface);overflow:hidden;display:flex;align-items:center;justify-content:center;transition:border-color .3s,box-shadow .3s}
+    .acc-circle img{width:100%;height:100%;object-fit:cover;transition:transform .5s;background:#111}
+    .acc-circle-item:hover .acc-circle img{transform:scale(1.1)}
+    .acc-circle-label{font-family:var(--font-sans);font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;max-width:110px;transition:color .25s;line-height:1.3}
+    /* Detail panel */
+    .acc-detail-panel{padding:0 0 100px;display:none}
+    .acc-detail-panel.visible{display:block;animation:panelIn .45s ease forwards}
+    .acc-panel-header{text-align:center;margin-bottom:3rem;padding:50px 0 0;border-top:1px solid var(--border)}
+    .acc-panel-header .panel-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .acc-panel-header h2{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:.75rem}
+    .acc-panel-header p{color:var(--muted);font-size:.95rem;max-width:520px;margin:0 auto;line-height:1.7}
+    @keyframes panelIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .product-spec-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.82rem}
+    .product-spec-table tr:nth-child(even){background:rgba(255,255,255,.04)}
+    .product-spec-table td{padding:.45rem .6rem;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+    .product-spec-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap;width:38%}
+    .product-price{font-size:1.1rem;font-weight:700;color:var(--gold);margin:.75rem 0 .5rem}
+    /* Product card image */
+    .product-card-img{position:relative;overflow:hidden}
+    .product-card-img img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#111;transition:transform .5s ease}
+    .product-card:hover .product-card-img img{transform:scale(1.05)}
+    .product-card-img .product-badge{position:absolute;top:10px;right:10px;z-index:10}
+    /* Gallery card */
+    .acc-gallery-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color .25s,transform .25s,box-shadow .25s}
+    .acc-gallery-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 8px 24px rgba(212,168,67,.15)}
+    .acc-gallery-card-img{aspect-ratio:1/1;overflow:hidden}
+    .acc-gallery-card-img img{width:100%;height:100%;object-fit:cover;display:block;background:#111;transition:transform .5s ease}
+    .acc-gallery-card:hover .acc-gallery-card-img img{transform:scale(1.06)}
+    .acc-gallery-card-label{padding:.6rem .5rem;font-family:var(--font-sans);font-size:.68rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:center;border-top:1px solid var(--border);transition:color .25s}
+    .acc-gallery-card:hover .acc-gallery-card-label{color:var(--gold)}
+    /* View All */
+    .view-all-section{padding:10px 0 60px;background:var(--bg)}
+    .view-all-toggle{display:flex;justify-content:center;margin-bottom:2.5rem}
+    .btn-view-all{display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 2rem;border:1px solid var(--gold);color:var(--gold);font-family:var(--font-sans);font-size:.78rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;background:transparent;cursor:pointer;transition:background .25s,color .25s;border-radius:2px}
+    .btn-view-all:hover{background:var(--gold);color:#000}
+    .btn-view-all .arrow{display:inline-block;transition:transform .3s}
+    .btn-view-all.open .arrow{transform:rotate(180deg)}
+    .all-acc-gallery{display:none}
+    .all-acc-gallery.visible{display:block;animation:panelIn .4s ease forwards}
+    .gallery-cat-block{margin-bottom:3rem}
+    .gallery-cat-heading{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+    .gallery-cat-heading .eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+    .gallery-cat-heading h3{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:var(--text);margin:0}
+    .acc-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+    @media(max-width:600px){
+      .acc-circle{width:80px;height:80px}.acc-circle-label{font-size:.68rem;max-width:80px}
+      .acc-circles-wrap{gap:1.5rem 1rem}.acc-gallery-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+    }
+  </style>
+</head>
+<body>
+
+<div class="acc-hero">
+  <div class="container">
+    <div class="section-heading reveal">
+      <p class="subtitle">The Essentials</p>
+      <h2>Bullz Eye Billiards Accessories</h2>
+      <p>Choose a category to explore our premium range of professional billiards accessories.</p>
+    </div>
+  </div>
+</div>
+
+<section class="acc-categories">
+  <div class="container">
+    <div class="acc-circles-wrap reveal" id="circlesWrap"></div>
+  </div>
+</section>
+
+<section class="view-all-section">
+  <div class="container">
+    <div class="view-all-toggle">
+      <button class="btn-view-all" id="viewAllBtn" onclick="toggleViewAll(this)">
+        View All Accessories <span class="arrow">▼</span>
+      </button>
+    </div>
+    <div class="all-acc-gallery" id="allAccGallery"></div>
+  </div>
+</section>
+
+<section class="acc-detail-panel" id="acc-detail-panel">
+  <div class="container">
+    <div class="acc-panel-header" id="acc-panel-header"></div>
+    <div class="product-grid" id="acc-product-grid"></div>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="https://wa.me/919876543210?text=Hi%20Bullz%20Eye!%20I%20want%20to%20know%20more%20about%20your%20accessories." target="_blank" class="btn-primary">Enquire on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+<script>
+/* ================================================================
+   ONE verified image per product — each image matched to its name
+   Sources: ortmann-billiards.com, snapklik.com, m.media-amazon.com,
+            5.imimg.com, i5.walmartimages.com
+   ================================================================ */
+const DATA = {
+
+  spider: {
+    title:'Snooker Plastic Spider', eyebrow:'Cue Rest Accessories',
+    desc:'Professional plastic spider bridge heads for snooker and pool. Solid construction that never scratches your cue — fast, snug fit every time.',
+    circleImg:'assets/pictures/spider.png',
+    products:[
+      { name:'Snooker Plastic Spider',   price:'₹ 380 / Piece',
+        img:'assets/pictures/spider.png',
+        desc:'Plastic Spider Bridge Head — lets you pick the perfect angle to shoot. Solid plastic, never scratches or damages your cue.',
+        specs:[['Material','Plastic'],['Color','White'],['Thickness','3.5 mm'],['Weight','120 gm']], badge:'Spider', wa:'Snooker+Plastic+Spider' },
+      { name:'Plastic Rest Bridge Head', price:'₹ 299 / Piece',
+        img:'assets/pictures/accessory-spider.png',
+        desc:'4-position cross bridge head slips onto the end of any cue. Lightweight, ideal for clubs and home use.',
+        specs:[['Usage','Sports'],['Length','9 Inch'],['Weight','100 gm'],['Material','Plastic'],['Color','White']], badge:'Spider', wa:'Plastic+Rest+Bridge+Head' },
+      { name:'Billiard Table Rest',      price:'₹ 300 / Piece',
+        img:'assets/pictures/table-rest.png',
+        desc:'Golden plastic rest bridge for ideal shooting angle. Fast snug fit on any standard cue stick.',
+        specs:[['Material','Plastic'],['Color','Golden'],['Usage','Snooker'],['Weight','100 gm']], badge:'Spider', wa:'Billiard+Table+Rest' },
+    ]
+  },
+
+  railing: {
+    title:'Snooker Railing Set', eyebrow:'Cue Rest & Rail Sets',
+    desc:'Complete snooker table ball rail sets — plated tracks, white rings, rods wrapped in smooth rubber with leather strips.',
+    circleImg:'assets/pictures/snooker-railing-set.jpeg',
+    products:[
+      { name:'Snooker Railing Set',      price:'₹ 1,240 / Piece',
+        img:'assets/pictures/snooker-railing-set.jpeg',
+        desc:'Snooker Table Ball Rail Set of 6 Piece. Brass plated tracks, golden rings, black rods wrapped in smooth rubber, leather strips.',
+        specs:[['Usage','Snooker'],['Material','Brass Plated'],['Weight','200 gm'],['Country','Made in India'],['Set','6 Pieces']], badge:'Railing', wa:'Snooker+Railing+Set' },
+      { name:'Pool Table Rail Set',      price:'₹ 1,239 / Pair',
+        img:'assets/pictures/rail-set.png',
+        desc:'Brass plated rail set of 6 Piece — golden rings, black plated rods in smooth rubber, leather strips. Fits all standard tables.',
+        specs:[['Usage','Pool, Snooker'],['Material','Stainless Steel'],['Color','Silver, Black']], badge:'Railing', wa:'Pool+Table+Rail+Set' },
+      { name:'Pool Table Golden Hook',   price:'₹ 920 / Piece',
+        img:'assets/pictures/golden-hook.png',
+        desc:'Golden zinc alloy hook for hanging bridge stick, rack, or pool accessories. Polished modern appearance.',
+        specs:[['Material','Zinc Alloy'],['Color','Golden'],['Weight','100 gm']], badge:'Railing', wa:'Pool+Table+Golden+Hook' },
+    ]
+  },
+
+  cuecover: {
+    title:'Snooker Cue Cover', eyebrow:'Cue Protection',
+    desc:'Premium cue covers in leather, nylon and PVC — protect your cue from dust and external damage.',
+    circleImg:'assets/pictures/blue-cue-cover.png',
+    products:[
+      { name:'Snooker Cue Cover',                price:'₹ 250 / Piece',
+        img:'https://5.imimg.com/data5/SELLER/Default/2023/6/312791044/YJ/NL/AU/10564229/club-147-snooker-cue-cover-500x500.jpeg',
+        desc:'Best black leather cover for 3/4 cues. Protects your cue from dust and any external damage. 57 inch length.',
+        specs:[['Material','Leather'],['Color','Black'],['Length','57 inch'],['Weight','500 gm']], badge:'Cue Cover', wa:'Snooker+Cue+Cover' },
+      { name:'Blue Snooker Half Cue Cover',      price:'₹ 250 / Piece',
+        img:'assets/pictures/blue-cue-cover.png',
+        desc:'Nylon half cue cover in blue — protects cue tip and upper shaft from dust and damage.',
+        specs:[['Material','Nylon'],['Color','Blue'],['Length','47 inch'],['Weight','100g']], badge:'Cue Cover', wa:'Blue+Snooker+Half+Cue+Cover' },
+      { name:'Snooker & Pool Half Cue Cover',    price:'₹ 220 / Piece',
+        img:'assets/pictures/black-cue-cover.png',
+        desc:'PVC half cue cover in black. Modern appearance, quality well known in the market.',
+        specs:[['Material','PVC'],['Color','Black'],['Length','9 inch'],['Weight','1 kg']], badge:'Cue Cover', wa:'Snooker+Pool+Half+Cue+Cover' },
+    ]
+  },
+
+  glove: {
+    title:'Snooker Table Glove', eyebrow:'Playing Gloves',
+    desc:'Premium billiard gloves for snooker and pool — reduce friction for smooth, consistent cue delivery.',
+    circleImg:'assets/pictures/red-glove.png',
+    products:[
+      { name:'Red Snooker Table Glove',          price:'₹ 75 / Piece',
+        img:'assets/pictures/red-glove.png',
+        desc:'Three-finger cue glove for left and right-hand shooters. Stretchable nylon with elastic wrist band. One size fits all.',
+        specs:[['Size','S, M, L, XL, XXL'],['Color','Red'],['Material','Stretch Nylon'],['Wash Care','Handwash']], badge:'Glove', wa:'Red+Snooker+Table+Glove' },
+      { name:'Snooker & Pool Table Gloves',      price:'₹ 85 / Piece',
+        img:'assets/pictures/pool-gloves.png',
+        desc:'Standard free-size glove for snooker and pool. Highly elastic, breathable and perspiration-wicking for extended play.',
+        specs:[['Size','S, M, L, XL'],['Color','Multi'],['Material','Spandex']], badge:'Glove', wa:'Snooker+Pool+Table+Gloves' },
+      { name:'Pool Tables Gloves',               price:'₹ 240 / Piece',
+        img:'assets/pictures/pool-tables-gloves.png',
+        desc:'Universal fit — can be worn on left or right hand. Premium spandex for enhanced grip and cue control.',
+        specs:[['Size','S, M, L, XL, XXL'],['Color','Black, Multi'],['Material','Spandex']], badge:'Glove', wa:'Pool+Tables+Gloves' },
+    ]
+  },
+
+  chalk: {
+    title:'Billiard Chalk', eyebrow:'Cue Tip Chalk',
+    desc:'Professional grade chalk and holders for perfect cue tip friction — optimal grip and consistent contact on every shot.',
+    circleImg:'https://5.imimg.com/data5/SELLER/Default/2022/11/SA/DE/ZP/10564229/billiard-billee-blue-chalk-12-pcs-500x500.png',
+    products:[
+      { name:'White Billiard Chalk (12 Pcs)',    price:'₹ 500 / Piece',
+        img:'https://5.imimg.com/data5/SELLER/Default/2022/11/SA/DE/ZP/10564229/billiard-billee-blue-chalk-12-pcs-500x500.png',
+        desc:'Best white chalk for snooker and pool cues — box of 12 pcs. Engineered for optimal grip and consistent cue ball contact.',
+        specs:[['Color','White'],['Box Contains','12 pcs'],['Material','Silicone'],['Shape','Square'],['Weight','200g']], badge:'Chalk', wa:'White+Billiard+Chalk+12+Pcs' },
+      { name:'Magnetic Chalk Holder',            price:'₹ 445 / Piece',
+        img:'assets/pictures/magnetic-chalk-holder.png',
+        desc:'Super power magnetic chalk holder with metal clip — clips to belt, keeps chalk handy and hand clean while you play.',
+        specs:[['Color','Black, Gold'],['Finish','Polished'],['Material','Metal'],['Weight','100 gm']], badge:'Chalk', wa:'Magnetic+Chalk+Holder' },
+      { name:'Snooker Chalk Holder',             price:'₹ 379 / Piece',
+        img:'assets/pictures/snooker-chalk-holder.png',
+        desc:'Snooker chalk holder with super power magnet — clips on belt and can simply remove by downward slide.',
+        specs:[['Color','Golden'],['Material','Metal + Magnet'],['Finish','Polished'],['Weight','120 gm']], badge:'Chalk', wa:'Snooker+Chalk+Holder' },
+    ]
+  },
+
+  cuestick: {
+    title:'Cue Stick', eyebrow:'Playing Cues',
+    desc:'Professional snooker and pool cue sticks — Omin, Pdon, and American pool cues. Premium materials for precision play.',
+    circleImg:'assets/pictures/omin-gunman-cue.png',
+    products:[
+      { name:'Omin Gunman 3/4 Snooker Cue',     price:'Get Best Quote',
+        img:'assets/pictures/omin-gunman-cue.png',
+        desc:'Professional Omin Gunman 3/4 jointed snooker cue — ash wood shaft, ebony butt, brass vacuum joint. Hand-crafted for precision play.',
+        specs:[['Brand','Omin'],['Type','3/4 Jointed'],['Tip','9.8–10mm'],['Shaft','North American Ash']], badge:'Cue Stick', wa:'Omin+Gunman+3+4+Snooker+Cue' },
+      { name:'Snooker Cue Stick 3/4',           price:'Get Best Quote',
+        img:'https://tse2.mm.bing.net/th/id/OIP.n-jl4Y3Izz0EMpo50INB2gHaHr?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+        desc:'Three-quarter jointed master cue stick — premium wood for precision play in clubs and professional settings.',
+        specs:[['Type','3/4 Jointed'],['Tip','9mm'],['Usage','Snooker & Pool']], badge:'Cue Stick', wa:'Snooker+Cue+Stick+3+4' },
+      { name:'Pdon Snooker Cue Stick',          price:'Get Best Quote',
+        img:'assets/pictures/pdon-cue.png',
+        desc:'Premium Pdon brand snooker cue — precision-crafted hardwood shaft for serious players and competition.',
+        specs:[['Brand','Pdon'],['Shaft','Hardwood'],['Usage','Snooker']], badge:'Cue Stick', wa:'Pdon+Snooker+Cue+Stick' },
+      
+    ]
+  },
+
+  ballset: {
+    title:'Snooker Ball Set', eyebrow:'Premium Ball Sets',
+    desc:'Tournament-grade ball sets for snooker and pool — phenolic resin for perfect roll and lasting shine.',
+    circleImg:'https://5.imimg.com/data5/SELLER/Default/2023/7/327505347/WY/UY/QY/10564229/aramith-premier-snooker-ball-set-500x500.jpg',
+
+    products:[
+      { name:'Aramith Premier Pool Ball Set',   price:'Get Best Quote',
+        img:'https://5.imimg.com/data5/SELLER/Default/2023/7/327505347/WY/UY/QY/10564229/aramith-premier-snooker-ball-set-500x500.jpg',
+        desc:'High-gloss Aramith Premier balls — precision-balanced for true roll. Belgian phenolic resin construction.',
+        specs:[['Brand','Aramith'],['Balls','15 + Cue Ball'],['Finish','High-Gloss'],['Material','Phenolic Resin']], badge:'Ball Set', wa:'Aramith+Premier+Pool+Ball+Set' },
+      { name:'Billiard Balls Set',             price:'Get Best Quote',
+        img:'assets/pictures/billiard-balls-set.png',
+        desc:'Complete professional billiard ball set (1–15 + cue ball) — regulation size for snooker and pool.',
+        specs:[['Type','Full Set 16 Balls'],['Core','Hard Resin'],['Size','Regulation']], badge:'Ball Set', wa:'Billiard+Balls+Set' },
+      { name:'Aramith TC Snooker Ball Set',    price:'Get Best Quote',
+        img:'assets/pictures/aramith-tc-set.png',
+        desc:'Aramith TC Premier snooker ball set in box — Belgian phenolic resin balls for professional tournaments.',
+        specs:[['Brand','Aramith'],['Type','TC Premier'],['Material','Phenolic Resin'],['Size','52.5mm']], badge:'Ball Set', wa:'Aramith+TC+Snooker+Ball+Set' },
+    ]
+  },
+
+  cloth: {
+    title:'Snooker Table Cloth', eyebrow:'Baize & Table Felt',
+    desc:'Premium quality snooker and pool table cloth — directional wool fabric for consistent pace used in tournament venues.',
+    circleImg:'https://5.imimg.com/data5/SELLER/Default/2023/7/327198348/TV/VK/IF/10564229/club-147-red-pool-table-cloth-500x500.jpg',
+    products:[
+      { name:'Red Pool Table 777 Cloth',       price:'Get Best Quote',
+        img:'https://5.imimg.com/data5/SELLER/Default/2023/7/327198348/TV/VK/IF/10564229/club-147-red-pool-table-cloth-500x500.jpg',
+        desc:'High-quality red baize for pool tables — club-grade cloth for consistent pace and smooth ball roll.',
+        specs:[['Color','Red'],['Type','Pool Table Cloth'],['Usage','Pool Tables']], badge:'Cloth', wa:'Red+Pool+Table+777+Cloth' },
+      { name:'Wiraka 777 Snooker Cloth',       price:'Get Best Quote',
+        img:'assets/pictures/wiraka-cloth.png',
+        desc:'Original Wiraka 777 tournament-grade green wool baize with directional nap for professional speed and accuracy.',
+        specs:[['Brand','Wiraka 777'],['Weight','30 oz Wool Blend'],['Color','Race Green'],['Fits','12×6ft Table']], badge:'Cloth', wa:'Wiraka+777+Snooker+Table+Cloth' },
+      { name:'Strachan 6811 Tournament Cloth', price:'Get Best Quote',
+        img:'https://i5.walmartimages.com/seo/7-ft-Strachan-6811-Tournament-30-oz-Snooker-Table-Cloth-English-Green_8d0c42fb-2702-4146-b263-38737ed7b708.dd8abe8fc3c18e7ab7f52423aae61be0.jpeg',
+        desc:'English Strachan 6811 wool cloth — the world\'s most popular snooker cloth. 30 oz tournament certified.',
+        specs:[['Brand','Strachan'],['Weight','30 oz Pure Wool'],['Certified','Tournament'],['Color','Championship Green']], badge:'Cloth', wa:'Strachan+6811+Tournament+Cloth' },
+    ]
+  },
+
+};
+
+const ORDER = ['spider','railing','cuecover','glove','chalk','cuestick','ballset','cloth'];
+const LABELS = {
+  spider:'Snooker<br>Plastic Spider', railing:'Snooker<br>Railing Set',
+  cuecover:'Snooker<br>Cue Cover',   glove:'Snooker<br>Table Glove',
+  chalk:'Billiard<br>Chalk',         cuestick:'Cue<br>Stick',
+  ballset:'Snooker<br>Ball Set',     cloth:'Snooker<br>Table Cloth'
+};
+
+let currentCat = null;
+
+// Build circles
+(function(){
+  document.getElementById('circlesWrap').innerHTML = ORDER.map(cat => {
+    const d = DATA[cat];
+    return `<div class="acc-circle-item" data-cat="${cat}" onclick="selectCategory(this)">
+      <div class="acc-circle"><img src="${d.circleImg}" alt="${d.title}" loading="lazy" /></div>
+      <span class="acc-circle-label">${LABELS[cat]}</span>
+    </div>`;
+  }).join('');
+})();
+
+// Build gallery lazily
+function buildGallery(){
+  let html = '';
+  for(const cat of ORDER){
+    const d = DATA[cat];
+    html += `<div class="gallery-cat-block">
+      <div class="gallery-cat-heading"><span class="eyebrow">${d.eyebrow}</span><h3>${d.title}</h3></div>
+      <div class="acc-gallery-grid">`;
+    d.products.forEach(p => {
+      html += `<div class="acc-gallery-card" onclick="selectCategoryByKey('${cat}')">
+        <div class="acc-gallery-card-img"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+        <div class="acc-gallery-card-label">${p.name}</div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+  document.getElementById('allAccGallery').innerHTML = html;
+}
+
+function toggleViewAll(btn){
+  const g = document.getElementById('allAccGallery');
+  const open = g.classList.contains('visible');
+  if(!open && !g.innerHTML) buildGallery();
+  g.classList.toggle('visible', !open);
+  btn.classList.toggle('open', !open);
+  btn.querySelector('.arrow').textContent = open ? '▼' : '▲';
+  if(!open) setTimeout(() => g.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+}
+
+function selectCategoryByKey(cat){
+  const el = document.querySelector(`.acc-circle-item[data-cat="${cat}"]`);
+  if(el){
+    selectCategory(el);
+    document.getElementById('allAccGallery').classList.remove('visible');
+    const btn = document.getElementById('viewAllBtn');
+    btn.classList.remove('open'); btn.querySelector('.arrow').textContent = '▼';
+  }
+}
+
+function buildSpecTable(specs){
+  return `<table class="product-spec-table">${specs.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
+}
+
+function buildCard(p){
+  return `<article class="product-card reveal" style="opacity:0;transform:translateY(20px)">
+    <div class="product-card-img">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" />
+      <span class="product-badge">${p.badge}</span>
+    </div>
+    <div class="product-card-body">
+      <h3>${p.name}</h3>
+      <div class="product-price">${p.price}</div>
+      <p class="desc">${p.desc}</p>
+      ${buildSpecTable(p.specs)}
+      <a href="https://wa.me/919876543210?text=Hi%20Bullz%20Eye!%20Quote%20for%20${p.wa.replace(/\+/g,'%20')}." target="_blank" class="btn-product-quote">Request Quote</a>
+    </div>
+  </article>`;
+}
+
+function selectCategory(el){
+  const cat = el.dataset.cat;
+  if(currentCat === cat){
+    currentCat = null;
+    document.querySelectorAll('.acc-circle-item').forEach(c => c.classList.remove('active'));
+    const panel = document.getElementById('acc-detail-panel');
+    panel.style.animation = 'none'; panel.classList.remove('visible'); return;
+  }
+  currentCat = cat;
+  document.querySelectorAll('.acc-circle-item').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const d = DATA[cat]; if(!d) return;
+  document.getElementById('acc-panel-header').innerHTML = `
+    <p class="panel-eyebrow">${d.eyebrow}</p><h2>${d.title}</h2><p>${d.desc}</p>`;
+  const grid = document.getElementById('acc-product-grid');
+  grid.innerHTML = d.products.map(p => buildCard(p)).join('');
+  const panel = document.getElementById('acc-detail-panel');
+  panel.classList.remove('visible'); void panel.offsetWidth; panel.classList.add('visible');
+  setTimeout(() => {
+    grid.querySelectorAll('.product-card').forEach((card, i) => {
+      setTimeout(() => {
+        card.style.transition = 'opacity .5s ease,transform .5s ease';
+        card.style.opacity = '1'; card.style.transform = 'translateY(0)';
+      }, i * 120);
+    });
+  }, 80);
+  setTimeout(() => panel.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+}
+</script>
+</body>
+</html>
