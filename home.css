@@ -1,0 +1,277 @@
+/* ============================================================
+   BULLZ EYE BILLIARDS — Home Page Styles
+   ============================================================ */
+
+/* --- Hero --- */
+.hero {
+  position: relative;
+  height: 100dvh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.88) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 0 24px;
+}
+
+.hero-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.9s 0.3s forwards;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.9s 0.5s forwards;
+}
+
+.hero-title .gold {
+  display: block;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroFadeUp 0.9s 0.5s forwards, shimmer 4s 1.5s linear infinite;
+}
+
+.hero-desc {
+  max-width: 580px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.1rem;
+  color: rgba(245,245,245,0.8);
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.9s 0.7s forwards;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 0.9s 0.9s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.hero-scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes heroFadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50%       { transform: scaleY(0.7); opacity: 0.5; }
+}
+
+/* --- Company Intro --- */
+.intro { padding: 100px 0; background: rgba(26,26,26,0.3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.stat-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(212,168,67,0.15);
+  background: rgba(10,10,10,0.5);
+}
+.stat-card .stat-num {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-card .stat-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* --- Featured Products --- */
+.products { padding: 100px 0; }
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* --- Why Choose Us --- */
+.why { padding: 80px 0; background: rgba(26,26,26,0.5); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+
+.why-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: rgba(10,10,10,0.5);
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.why-card:hover { border-color: rgba(212,168,67,0.4); transform: translateY(-4px); }
+
+.why-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 1.5rem;
+  background: rgba(212,168,67,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  color: var(--gold);
+  transition: transform 0.3s;
+}
+.why-card:hover .why-icon { transform: scale(1.1); }
+.why-card h4 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 0.75rem; }
+.why-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+/* --- Manufacturing Process --- */
+.process { padding: 100px 0; }
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 2rem; left: 8%; right: 8%;
+  height: 1px;
+  background: var(--border);
+}
+
+.process-step { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
+
+.step-num {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 16px rgba(212,168,67,0.2);
+}
+.process-step h4 { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; }
+.process-step p { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+
+/* --- Testimonials --- */
+.testimonials { padding: 100px 0; background: rgba(26,26,26,0.3); border-top: 1px solid var(--border); }
+
+.testimonials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+/* --- CTA --- */
+.cta {
+  padding: 100px 0;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(212,168,67,0.08) 0%, rgba(10,10,10,0) 60%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.cta h2 { font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1rem; }
+.cta p { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto 2.5rem; }
+.cta-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+/* --- Contact Form (inline on home) --- */
+.contact-home { padding: 100px 0; }
+
+.contact-home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+.contact-home-info h3 { font-size: 1.6rem; margin-bottom: 1rem; }
+.contact-home-info p { color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+
+.contact-detail { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+.contact-detail .icon { color: var(--gold); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+.contact-detail h5 { font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+.contact-detail p { font-size: 0.9rem; color: var(--muted); }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: repeat(3, 1fr); }
+  .process-steps::before { display: none; }
+  .contact-home-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+@media (max-width: 640px) {
+  .hero-title { font-size: clamp(2.5rem, 12vw, 5rem); }
+  .products-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
