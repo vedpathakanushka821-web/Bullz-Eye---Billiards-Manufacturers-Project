@@ -7,10 +7,20 @@
   <meta name="description" content="Browse Bullz Eye Billiards' complete catalog of Snooker, Pool, American Pool, Air Hockey, Foosball, Table Tennis tables and accessories." />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/products.css" />
+  <style>
+    /* इमेज किंवा कार्डवरील लिंक व्यवस्थित दिसण्यासाठी छोटी स्टाइल */
+    .product-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .product-card-link:hover {
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="container">
     <a href="index.html" class="nav-logo">
@@ -20,7 +30,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="products.html">Products</a></li>
+      <li><a href="products.html" class="active">Products</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -39,7 +49,6 @@
   <a href="contact.html" class="btn-quote">Get Quote</a>
 </div>
 
-<!-- PRODUCTS PAGE -->
 <main class="products-page">
   <div class="container">
 
@@ -49,108 +58,117 @@
       <p>Every table crafted with tournament-grade materials, precision engineering, and uncompromising attention to detail.</p>
     </div>
 
-    <!-- Filter Tabs -->
     <div class="filter-tabs" role="group" aria-label="Product category filter">
       <button class="filter-tab active" data-filter="All">All</button>
       <button class="filter-tab" data-filter="Snooker">Snooker</button>
       <button class="filter-tab" data-filter="Pool">Pool</button>
-      <button class="filter-tab" data-filter="American Pool">American Pool</button>
       <button class="filter-tab" data-filter="Air Hockey">Air Hockey</button>
       <button class="filter-tab" data-filter="Foosball">Foosball</button>
       <button class="filter-tab" data-filter="Table Tennis">Table Tennis</button>
       <button class="filter-tab" data-filter="Accessories">Accessories</button>
     </div>
 
-    <!-- Product Grid -->
     <div class="product-grid">
 
       <article class="product-card reveal reveal-delay-1" data-category="Snooker" data-testid="card-product-1">
-        <div class="product-card-img">
-          <img src="assets/pictures/snooker-table.png" alt="Championship Snooker Table" loading="lazy" />
-          <span class="product-badge">Snooker</span>
-        </div>
+        <a href="snooker table.html" class="product-card-link">
+          <div class="product-card-img">
+            <img src="assets/pictures/snooker-table.png" alt="Championship Snooker Table" loading="lazy" />
+            <span class="product-badge">Snooker</span>
+          </div>
+        </a>
         <div class="product-card-body">
           <h3>Championship Snooker Table</h3>
           <p class="desc">12ft tournament grade table with premium steel block cushions and pure wool cloth.</p>
           <ul class="product-specs">
             <li>12ft x 6ft</li><li>Italian Slate</li><li>Steel Block Cushions</li>
           </ul>
-          <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20a%20quote%20for%20Championship%20Snooker%20Table." target="_blank" class="btn-product-quote">Request Quote</a>
+          <a href="snooker table.html" class="btn-product-quote">View Details</a>
         </div>
       </article>
 
       <article class="product-card reveal reveal-delay-2" data-category="Snooker" data-testid="card-product-2">
-        <div class="product-card-img">
-          <img src="assets/pictures/snooker-table.png" alt="Club Pro Snooker Table" loading="lazy" />
-          <span class="product-badge">Snooker</span>
-        </div>
+        <a href="snooker table.html" class="product-card-link">
+          <div class="product-card-img">
+            <img src="assets/pictures/snooker-table.png" alt="Club Pro Snooker Table" loading="lazy" />
+            <span class="product-badge">Snooker</span>
+          </div>
+        </a>
         <div class="product-card-body">
           <h3>Club Pro Snooker</h3>
           <p class="desc">10ft standard club table, perfect for commercial use with durable finish and easy maintenance.</p>
           <ul class="product-specs">
             <li>10ft x 5ft</li><li>3-Piece Slate</li><li>Mahogany Finish</li>
           </ul>
-          <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20a%20quote%20for%20Club%20Pro%20Snooker." target="_blank" class="btn-product-quote">Request Quote</a>
+          <a href="snooker table.html" class="btn-product-quote">View Details</a>
         </div>
       </article>
 
       <article class="product-card reveal reveal-delay-3" data-category="Pool" data-testid="card-product-3">
-        <div class="product-card-img">
-          <img src="assets/pictures/pool-table.png" alt="Royal English Pool Table" loading="lazy" />
-          <span class="product-badge">Pool</span>
-        </div>
+        <a href="pool table.html" class="product-card-link">
+          <div class="product-card-img">
+            <img src="assets/pictures/pool-table.png" alt="Royal English Pool Table" loading="lazy" />
+            <span class="product-badge">Pool</span>
+          </div>
+        </a>
         <div class="product-card-body">
           <h3>Royal English Pool Table</h3>
           <p class="desc">Classic design with ornate carving, perfect for luxury hotels and premium clubs.</p>
           <ul class="product-specs">
             <li>8ft x 4ft</li><li>Solid Teak Wood</li><li>Tournament Cloth</li>
           </ul>
-          <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20a%20quote%20for%20Royal%20English%20Pool%20Table." target="_blank" class="btn-product-quote">Request Quote</a>
+          <a href="pool table.html" class="btn-product-quote">View Details</a>
         </div>
       </article>
 
       <article class="product-card reveal reveal-delay-1" data-category="Pool" data-testid="card-product-4">
-        <div class="product-card-img">
-          <img src="assets/pictures/pool-table.png" alt="Modern Minimalist Pool Table" loading="lazy" />
-          <span class="product-badge">Pool</span>
-        </div>
+        <a href="pool table.html" class="product-card-link">
+          <div class="product-card-img">
+            <img src="assets/pictures/pool-table.png" alt="Modern Minimalist Pool Table" loading="lazy" />
+            <span class="product-badge">Pool</span>
+          </div>
+        </a>
         <div class="product-card-body">
           <h3>Modern Minimalist Pool</h3>
           <p class="desc">Sleek, contemporary design for modern homes and luxury apartments.</p>
           <ul class="product-specs">
             <li>7ft x 3.5ft</li><li>Matte Finish</li><li>Hidden Pockets</li>
           </ul>
-          <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20a%20quote%20for%20Modern%20Minimalist%20Pool." target="_blank" class="btn-product-quote">Request Quote</a>
+          <a href="pool table.html" class="btn-product-quote">View Details</a>
         </div>
       </article>
 
       <article class="product-card reveal reveal-delay-2" data-category="American Pool" data-testid="card-product-5">
-        <div class="product-card-img">
-          <img src="assets/pictures/american-pool-table.png" alt="Pro American Pool Table" loading="lazy" />
-          <span class="product-badge">American Pool</span>
-        </div>
+        <a href="pool table.html" class="product-card-link">
+          <div class="product-card-img">
+            <img src="assets/pictures/american-pool-table.png" alt="Pro American Pool Table" loading="lazy" />
+            <span class="product-badge">American Pool</span>
+          </div>
+        </a>
         <div class="product-card-body">
           <h3>Pro American Pool</h3>
           <p class="desc">Modern styling with drop pockets and high-speed Simonis cloth for serious players.</p>
           <ul class="product-specs">
             <li>9ft x 4.5ft</li><li>K55 Rubber Cushions</li><li>Matte Black</li>
           </ul>
-          <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20a%20quote%20for%20Pro%20American%20Pool." target="_blank" class="btn-product-quote">Request Quote</a>
+          <a href="pool table.html" class="btn-product-quote">View Details</a>
         </div>
       </article>
 
       <article class="product-card reveal reveal-delay-3" data-category="Air Hockey" data-testid="card-product-6">
-        <div class="product-card-img">
-          <img src="assets/pictures/air-hockey-table.png" alt="Velocity Air Hockey Table" loading="lazy" />
-          <span class="product-badge">Air Hockey</span>
-        </div>
+        <a href="air hockey table.html " class="product-card-link">
+          <div class="product-card-img">
+            <img src="assets/pictures/air-hockey-table.png" alt="Velocity Air Hockey Table" loading="lazy" />
+            <span class="product-badge">Air Hockey</span>
+          </div>
+        </a>
         <div class="product-card-body">
           <h3>Velocity Air Hockey</h3>
           <p class="desc">Commercial grade air hockey with LED scoring and powerful blower motor.</p>
           <ul class="product-specs">
             <li>8ft Size</li><li>LED Lighting</li><li>Polycarbonate Surface</li>
           </ul>
-          <a href="https://wa.me/919876543210?text=Hi!%20I%20want%20a%20quote%20for%20Velocity%20Air%20Hockey." target="_blank" class="btn-product-quote">Request Quote</a>
+          <a href="air hockey table.html" class="btn-product-quote">View Details</a>
         </div>
       </article>
 
@@ -205,7 +223,6 @@
   </div>
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -223,9 +240,9 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="products.html">Snooker Tables</a></li>
-          <li><a href="products.html">Pool Tables</a></li>
-          <li><a href="products.html">Air Hockey</a></li>
+          <li><a href="snooker-table.html">Snooker Tables</a></li>
+          <li><a href="pool.html">Pool Tables</a></li>
+          <li><a href="air-hockey.html">Air Hockey</a></li>
           <li><a href="products.html">Foosball</a></li>
           <li><a href="accessories.html">Accessories</a></li>
         </ul>
